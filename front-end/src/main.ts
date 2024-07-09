@@ -14,7 +14,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const socket = io('http://localhost:3001');
+const socket = io('http://localhost:3000');
 
 let mainWindow: BrowserWindow | null = null;
 

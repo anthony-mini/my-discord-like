@@ -1,5 +1,5 @@
 import createTables from './createTable.js';
-import insertFakeUsers from './insertFakeUsers.js';
+import insertFakeUsers from './insertFakeData.js';
 
 async function initDB() {
   try {

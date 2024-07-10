@@ -23,7 +23,8 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      // Fichier de préchargement pour communiquer entre le processus principal et le processus de rendu.
+      preload: path.join(__dirname, 'preload.ts'),
     },
   });
 

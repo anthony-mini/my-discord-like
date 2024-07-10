@@ -1,3 +1,5 @@
+// Point d'entrée de l'application React avec le contexte du socket
+
 /**
  * This file will automatically be loaded by vite and run in the "renderer" context.
  * To learn more about the differences between the "main" and the "renderer" context in
@@ -26,6 +28,14 @@
  * ```
  */
 
-import './index.css';
+import { createRoot } from 'react-dom/client';
+import App from './app';
 
-console.log('👋 This message is being logged by "renderer.ts", included via Vite');
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  console.log('Root element found.');
+  const root = createRoot(rootElement);
+  root.render(<App />);
+} else {
+  console.error('Root element not found.');
+}

@@ -3,6 +3,7 @@ const { Client } = pkg;
 import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
+import http from 'http';
 
 async function main() {
   const client = new Client({
@@ -28,11 +29,7 @@ async function main() {
   app.use(express.json());
 
   // Cors middleware pour autoriser toutes les requêtes
-  app.use(
-    cors({
-      origin: '*',
-    }),
-  );
+  app.use(cors({ origin: '*' }));
 
   // ROUTES
 
@@ -47,13 +44,11 @@ async function main() {
     }
   });
 
-  // Create HTTP Server and listen on port 3000
-  app.listen(3000, () => {
-    console.log('Server started on http://localhost:3000');
-  });
+  // Create HTTP server
+  const server = http.createServer(app);
 
-  // Create Socket.io server
-  const io = new Server(3001, {
+  // Create Socket.io server and attach it to the HTTP server
+  const io = new Server(server, {
     cors: {
       origin: '*',
     },
@@ -94,7 +89,10 @@ async function main() {
     });
   });
 
-  console.log('Socket.io server started on http://localhost:3001');
+  // Start the server on port 3000
+  server.listen(3000, () => {
+    console.log('Server started on http://localhost:3000');
+  });
 }
 
 main();

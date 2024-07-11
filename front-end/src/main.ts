@@ -1,14 +1,7 @@
 import { app, BrowserWindow, ipcMain, Notification } from 'electron';
 import path from 'path';
 import { io } from 'socket.io-client';
-
-interface Message {
-  id: number;
-  content: string;
-  userId: number;
-  channelId: number;
-  createdAt: string;
-}
+import { Message } from './type/message';
 
 if (require('electron-squirrel-startup')) {
   app.quit();

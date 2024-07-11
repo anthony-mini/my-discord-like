@@ -2,13 +2,18 @@
 
 import React from 'react';
 import { SocketProvider } from './providers/SocketProvider';
+import ChatScreen from './screens/ChatScreen';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
     <SocketProvider>
-      <div>
-        <h1>Chat App</h1>
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<ChatScreen />} />
+        </Routes>
+      </Router>
     </SocketProvider>
   );
 };

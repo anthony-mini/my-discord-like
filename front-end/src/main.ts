@@ -45,7 +45,7 @@ const createWindow = () => {
 
     new Notification({
       title: 'New Message',
-      body: `From ${message.userId}: ${message.content}`,
+      body: `From ${message.username}: ${message.content}`,
     }).show();
   };
 

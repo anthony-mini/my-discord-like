@@ -104,7 +104,8 @@ async function main() {
 
         // Insert message into database
         const result = await client.query(
-          'INSERT INTO messages (content, "userId", "channelId") VALUES ($1, $2, $3) RETURNING *',
+          `INSERT INTO messages (content, "userId", "channelId") VALUES ($1, $2, $3) RETURNING *, 
+          (SELECT username FROM users WHERE id = $2) AS username`,
           [message.content, message.userId, message.channelId],
         );
         console.log('Message saved to database', result.rows[0]);

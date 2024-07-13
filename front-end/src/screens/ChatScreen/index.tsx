@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Channel } from '../../type/channel';
 import { MessageList } from '../../components/MessageList';
+import { ChatInput } from '../../components/ChatInput';
 
 function ChatScreen() {
   const [channels, setChannels] = useState<Channel[]>([]); // Utilisez le type Channel[] pour l'état channels
@@ -17,17 +18,28 @@ function ChatScreen() {
   }, []);
 
   return (
-    <div>
-      <h1>Channels</h1>
-      <ul>
-        {channels.map((channel) => (
-          <li key={channel.id} onClick={() => setCurrentChannelId(channel.id)}>
-            {channel.title}
-          </li>
-        ))}
-      </ul>
-      {currentChannelId && <MessageList currentChannelId={currentChannelId} />}
-    </div>
+    <>
+      <div>
+        <h1>Channels</h1>
+        <ul>
+          {channels.map((channel) => (
+            <li
+              key={channel.id}
+              onClick={() => setCurrentChannelId(channel.id)}
+            >
+              {channel.title}
+            </li>
+          ))}
+        </ul>
+        {currentChannelId && (
+          <>
+            <MessageList currentChannelId={currentChannelId} />
+            <ChatInput currentChannelId={currentChannelId} />
+          </>
+        )}
+      </div>
+      <div className="input-container"></div>
+    </>
   );
 }
 

@@ -1,5 +1,4 @@
-import { useEffect, useState, FormEvent } from 'react';
-import { Message } from '../type/message';
+import { useState, FormEvent } from 'react';
 import { useSocket } from '../providers/SocketProvider';
 
 export function ChatInput({ currentChannelId }: { currentChannelId: number }) {

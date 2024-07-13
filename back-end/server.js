@@ -44,6 +44,40 @@ async function main() {
     }
   });
 
+  // Get Messages list
+  app.get('/messages', async (req, res) => {
+    const channelId = req.query.channelId; // Récupération de l'ID du canal depuis les paramètres de la requête
+    if (!channelId) {
+      return res.status(400).json({ error: 'Channel ID is required' });
+    }
+    try {
+      const result = await client.query(
+        `SELECT messages.id, messages.content, messages."createdAt", users.username 
+         FROM messages 
+         JOIN users ON messages."userId" = users.id 
+         WHERE "channelId" = $1 
+         ORDER BY messages."createdAt" ASC`, // Ajout d'un tri par date de création
+        [channelId],
+      );
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Error retrieving messages:', error);
+      res.status(500).json({ error: 'Database error' });
+    }
+  });
+
+  // Get Channel
+
+  app.get('/channels', async (req, res) => {
+    try {
+      const result = await client.query('SELECT * FROM channels');
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Error retrieving channels:', error);
+      res.status(500).json({ error: 'Database error' });
+    }
+  });
+
   // Create HTTP server
   const server = http.createServer(app);
 
@@ -70,7 +104,8 @@ async function main() {
 
         // Insert message into database
         const result = await client.query(
-          'INSERT INTO messages (content, "userId", "channelId") VALUES ($1, $2, $3) RETURNING *',
+          `INSERT INTO messages (content, "userId", "channelId") VALUES ($1, $2, $3) RETURNING *, 
+          (SELECT username FROM users WHERE id = $2) AS username`,
           [message.content, message.userId, message.channelId],
         );
         console.log('Message saved to database', result.rows[0]);

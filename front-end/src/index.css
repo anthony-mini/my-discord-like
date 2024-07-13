@@ -5,3 +5,8 @@ body {
   max-width: 38rem;
   padding: 2rem;
 }
+
+.className {
+  color: red;
+  font-size: 300px;
+}

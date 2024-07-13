@@ -43,10 +43,14 @@ const createWindow = () => {
       mainWindow.webContents.send('socket-message', message);
     }
 
-    new Notification({
-      title: 'New Message',
-      body: `From ${message.username}: ${message.content}`,
-    }).show();
+    // TODO: Récupérer globalement dans toute l'app le currentUser (Actuellement set à 1) pour gestion des notifications
+    if (message.userId !== 1) {
+      // Le message provient d'un autre utilisateur, déclenchez la notification
+      new Notification({
+        title: 'New Message',
+        body: `From ${message.username}: ${message.content}`,
+      }).show();
+    }
   };
 
   socket.on('message', handleMessage);

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Channel } from '../../type/channel';
 import { MessageList } from '../../components/MessageList';
 import { ChatInput } from '../../components/ChatInput';
+import { SocketContext } from '../../providers/SocketProvider';
 
 type ChatScreenProps = {
   userId: number;
@@ -11,6 +12,7 @@ type ChatScreenProps = {
 const ChatScreen: React.FC<ChatScreenProps> = ({ userId, onBack }) => {
   const [channels, setChannels] = useState<Channel[]>([]);
   const [currentChannelId, setCurrentChannelId] = useState<number | null>(null);
+  const socketContext = useContext(SocketContext);
 
   useEffect(() => {
     const fetchChannels = async () => {
@@ -22,7 +24,13 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ userId, onBack }) => {
     };
 
     fetchChannels();
-  }, [userId]); // Ajout de userId comme dépendance de useEffect
+  }, [userId]);
+
+  useEffect(() => {
+    if (currentChannelId && socketContext?.joinChannel) {
+      socketContext.joinChannel(currentChannelId.toString());
+    }
+  }, [currentChannelId, socketContext?.joinChannel]);
 
   return (
     <>

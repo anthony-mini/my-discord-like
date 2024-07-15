@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   useContext,
   ReactNode,
@@ -6,15 +6,16 @@ import {
   useState,
 } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { Message } from '../type/message';
+import { Message, NewMessage } from '../type/message';
 
 interface AppSocketContext {
   socket: Socket | null;
   onMessage: (callback: (message: Message) => void) => void;
-  send: (message: Message) => void;
+  send: (message: NewMessage, channelId: string) => void;
+  joinChannel: (channelId: string) => void;
 }
 
-const SocketContext = createContext<AppSocketContext | null>(null);
+export const SocketContext = createContext<AppSocketContext | null>(null);
 
 export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -34,14 +35,21 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
     console.log('Socket message received');
   };
 
-  const send = (message: Message) => {
+  const send = (message: NewMessage, channelId: string) => {
     if (!socket) return;
-    socket.emit('message', message);
-    console.log('Socket message sent', message);
+    const messageWithChannel = { ...message, channelId };
+    socket.emit('message', messageWithChannel);
+    console.log('Socket message sent', messageWithChannel);
+  };
+
+  const joinChannel = (channelId: string) => {
+    if (!socket) return;
+    socket.emit('joinChannel', channelId);
+    console.log(`Joined channel ${channelId}`);
   };
 
   return (
-    <SocketContext.Provider value={{ socket, onMessage, send }}>
+    <SocketContext.Provider value={{ socket, onMessage, send, joinChannel }}>
       {children}
     </SocketContext.Provider>
   );

@@ -18,22 +18,20 @@ export function MessageList({
       );
       const data = await response.json();
       setMessages(data);
-      console.log(messages);
     };
 
     fetchMessages();
 
-    // Écoute des nouveaux messages de la socket.
     const handleNewMessage = (newMessage: Message) => {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      if (newMessage.channelId === currentChannelId) {
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      }
     };
 
-    // S'abonner aux nouveaux messages
     onMessage(handleNewMessage);
 
-    // Nettoyer l'abonnement lors du démontage
     return () => {
-      socket?.off('message', handleNewMessage); // Désabonnement de l'événement 'message'
+      socket?.off('message', handleNewMessage);
     };
   }, [socket, onMessage, currentChannelId]);
 

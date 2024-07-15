@@ -128,7 +128,7 @@ async function main() {
         console.log('Message saved to database', result.rows[0]);
 
         // Emit message to all clients in the channel
-        io.to(message.channelId).emit('message', result.rows[0]);
+        io.emit('message', result.rows[0]);
       } catch (error) {
         console.error('Error saving message to database', error);
         socket.emit('error', 'Error saving message to database');

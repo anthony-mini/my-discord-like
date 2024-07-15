@@ -30,9 +30,13 @@ function Home() {
     }
   };
 
+  const handleBack = () => {
+    setSelectedUserId(null);
+  };
+
   if (selectedUserId !== null) {
     // Passer l'ID de l'utilisateur sélectionné au composant ChatScreen
-    return <ChatScreen userId={selectedUserId} />;
+    return <ChatScreen userId={selectedUserId} onBack={handleBack} />;
   }
 
   return (

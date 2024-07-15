@@ -1,11 +1,14 @@
-import { useEffect, useState, FormEvent } from 'react';
-import { Message } from '../type/message';
+import { useState, FormEvent } from 'react';
 import { useSocket } from '../providers/SocketProvider';
 
-export function ChatInput({ currentChannelId }: { currentChannelId: number }) {
+interface ChatInputProps {
+  currentChannelId: number;
+  userId: number;
+}
+
+export function ChatInput({ currentChannelId, userId }: ChatInputProps) {
   const [message, setMessage] = useState('');
   const { socket } = useSocket();
-  const userId = 1; // ID utilisateur fictif pour la démonstration
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

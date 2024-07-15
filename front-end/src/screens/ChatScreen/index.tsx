@@ -3,19 +3,31 @@ import { Channel } from '../../type/channel';
 import { MessageList } from '../../components/MessageList';
 import { ChatInput } from '../../components/ChatInput';
 
-function ChatScreen() {
-  const [channels, setChannels] = useState<Channel[]>([]); // Utilisez le type Channel[] pour l'état channels
+interface ChatScreenProps {
+  userId: number;
+}
+
+const ChatScreen: React.FC<ChatScreenProps> = ({ userId }) => {
+  const [channels, setChannels] = useState<Channel[]>([]);
   const [currentChannelId, setCurrentChannelId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchChannels = async () => {
-      const response = await fetch('http://localhost:3000/channels');
+      const response = await fetch(
+        `http://localhost:3000/channels?userId=${userId}`,
+      );
       const data = await response.json();
       setChannels(data);
     };
 
     fetchChannels();
-  }, []);
+  }, [userId]); // Ajout de userId comme dépendance de useEffect
+
+  // const { ipcRenderer } = window.require('electron');
+
+  // useEffect(() => {
+  //   ipcRenderer.send('set-user-id', userId);
+  // }, [userId]);
 
   return (
     <>
@@ -34,13 +46,13 @@ function ChatScreen() {
         {currentChannelId && (
           <>
             <MessageList currentChannelId={currentChannelId} />
-            <ChatInput currentChannelId={currentChannelId} />
+            <ChatInput currentChannelId={currentChannelId} userId={userId} />
           </>
         )}
       </div>
       <div className="input-container"></div>
     </>
   );
-}
+};
 
 export default ChatScreen;

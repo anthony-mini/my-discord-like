@@ -78,6 +78,18 @@ async function main() {
     }
   });
 
+  //GET User
+
+  app.get('/users', async (req, res) => {
+    try {
+      const result = await client.query('SELECT * FROM users');
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Error retrieving users:', error);
+      res.status(500).json({ error: 'Database error' });
+    }
+  });
+
   // Create HTTP server
   const server = http.createServer(app);
 

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Notification } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, Notification } from 'electron';
 import path from 'path';
 import { io } from 'socket.io-client';
 import { Message } from './type/message';
@@ -9,14 +9,13 @@ if (require('electron-squirrel-startup')) {
 
 const socket = io('http://localhost:3000');
 
-let mainWindow: BrowserWindow | null = null;
+let windows: BrowserWindow[] = [];
 
 const createWindow = () => {
-  mainWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      // Fichier de préchargement pour communiquer entre le processus principal et le processus de rendu.
       preload: path.join(__dirname, 'preload.ts'),
     },
   });
@@ -39,29 +38,72 @@ const createWindow = () => {
 
   const handleMessage = (message: Message) => {
     console.log('Received message', message);
-    if (mainWindow) {
-      mainWindow.webContents.send('socket-message', message);
-    }
+    windows.forEach((win) => {
+      win.webContents.send('socket-message', message);
+    });
 
-    new Notification({
-      title: 'New Message',
-      body: `From ${message.username}: ${message.content}`,
-    }).show();
+    if (message.userId !== 1) {
+      new Notification({
+        title: `📬 Nouveau Message dans le Canal #${message.channelId}`,
+        body: `👤 ${message.username} a écrit : \n\n"${message.content}"\n\n🕒 ${new Date().toLocaleTimeString()}`,
+      }).show();
+    }
   };
 
   socket.on('message', handleMessage);
 
   mainWindow.on('close', () => {
     socket.off('message', handleMessage);
-    mainWindow = null;
+    windows = windows.filter((win) => win !== mainWindow);
   });
 
   ipcMain.on('socket-message', (_, message: Message) => {
     socket.emit('message', message);
   });
+
+  windows.push(mainWindow);
 };
 
-app.on('ready', createWindow);
+// Gestion du menu de l'application pour macOS ajouté la section File pour créer une nouvelle fenêtre
+
+const createMenu = () => {
+  const isMac = process.platform === 'darwin';
+
+  const template: Electron.MenuItemConstructorOptions[] = [
+    ...(isMac
+      ? [
+          {
+            label: app.name,
+            submenu: [
+              { role: 'about' as const },
+              { type: 'separator' as const },
+              { role: 'quit' as const },
+            ],
+          },
+        ]
+      : []),
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'New Window',
+          click: () => {
+            createWindow();
+          },
+        },
+        isMac ? { role: 'close' as const } : { role: 'quit' as const },
+      ],
+    },
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+};
+
+app.on('ready', () => {
+  createWindow();
+  createMenu();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -70,7 +112,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
+  if (windows.length === 0) {
     createWindow();
   }
 });

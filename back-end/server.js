@@ -78,6 +78,18 @@ async function main() {
     }
   });
 
+  //GET User
+
+  app.get('/users', async (req, res) => {
+    try {
+      const result = await client.query('SELECT * FROM users');
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Error retrieving users:', error);
+      res.status(500).json({ error: 'Database error' });
+    }
+  });
+
   // Create HTTP server
   const server = http.createServer(app);
 
@@ -91,6 +103,11 @@ async function main() {
   // Event listener for new connection
   io.on('connection', (socket) => {
     console.log('New connection', socket.id);
+
+    socket.on('joinChannel', (channelId) => {
+      socket.join(channelId);
+      console.log(`Socket ${socket.id} joined channel ${channelId}`);
+    });
 
     // Event listener for new message
     socket.on('message', async (message) => {
@@ -110,7 +127,7 @@ async function main() {
         );
         console.log('Message saved to database', result.rows[0]);
 
-        // Emit message to all clients
+        // Emit message to all clients in the channel
         io.emit('message', result.rows[0]);
       } catch (error) {
         console.error('Error saving message to database', error);

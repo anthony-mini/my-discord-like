@@ -34,13 +34,14 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ userId, onBack }) => {
 
   return (
     <>
-      <div>
+      <div className="chat-container">
         <h1>Channels</h1>
-        <ul>
+        <ul className="channel-list">
           {channels.map((channel) => (
             <li
               key={channel.id}
               onClick={() => setCurrentChannelId(channel.id)}
+              className={currentChannelId === channel.id ? 'active' : ''}
             >
               {channel.title}
             </li>
@@ -52,9 +53,10 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ userId, onBack }) => {
             <ChatInput currentChannelId={currentChannelId} userId={userId} />
           </>
         )}
-        <button onClick={onBack}>Logout</button>
+        <button className="logout-button" onClick={onBack}>
+          Logout
+        </button>
       </div>
-      <div className="input-container"></div>
     </>
   );
 };

@@ -1,0 +1,19 @@
+.message-list {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.message-item {
+  margin-bottom: 0.75rem;
+}
+
+.message-item p {
+  margin: 0;
+  padding: 0.75rem;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}

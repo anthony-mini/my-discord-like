@@ -40,14 +40,12 @@ function Home() {
   }
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Choisissez un utilisateur</h1>
       <select
         onChange={(e) => handleSelect(Number(e.target.value))}
         defaultValue=""
       >
-        {' '}
-        // Correction ici
         <option value="" disabled>
           Choisir un utilisateur
         </option>

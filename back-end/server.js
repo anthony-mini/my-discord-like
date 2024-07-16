@@ -104,6 +104,11 @@ async function main() {
   io.on('connection', (socket) => {
     console.log('New connection', socket.id);
 
+    socket.on('joinChannel', (channelId) => {
+      socket.join(channelId);
+      console.log(`Socket ${socket.id} joined channel ${channelId}`);
+    });
+
     // Event listener for new message
     socket.on('message', async (message) => {
       console.log('message received', message);
@@ -122,7 +127,7 @@ async function main() {
         );
         console.log('Message saved to database', result.rows[0]);
 
-        // Emit message to all clients
+        // Emit message to all clients in the channel
         io.emit('message', result.rows[0]);
       } catch (error) {
         console.error('Error saving message to database', error);

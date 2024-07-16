@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useSocket } from '../providers/SocketProvider';
+import { NewMessage } from '../type/message';
 
 interface ChatInputProps {
   currentChannelId: number;
@@ -8,17 +9,17 @@ interface ChatInputProps {
 
 export function ChatInput({ currentChannelId, userId }: ChatInputProps) {
   const [message, setMessage] = useState('');
-  const { socket } = useSocket();
+  const { send } = useSocket();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (message.trim()) {
-      const messageData = {
+      const messageData: NewMessage = {
         content: message,
         userId,
         channelId: currentChannelId,
       };
-      socket?.emit('message', messageData); // Envoi du message via WebSocket
+      send(messageData, currentChannelId.toString()); // Envoi du message via WebSocket
       setMessage(''); // Réinitialisation du champ de saisie
     }
   };

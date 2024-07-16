@@ -44,8 +44,8 @@ const createWindow = () => {
 
     if (message.userId !== 1) {
       new Notification({
-        title: 'New Message',
-        body: `From ${message.username}: ${message.content}`,
+        title: `📬 Nouveau Message dans le Canal #${message.channelId}`,
+        body: `👤 ${message.username} a écrit : \n\n"${message.content}"\n\n🕒 ${new Date().toLocaleTimeString()}`,
       }).show();
     }
   };

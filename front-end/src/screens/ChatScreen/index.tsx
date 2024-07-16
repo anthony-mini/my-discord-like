@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Channel } from '../../type/channel';
 import { MessageList } from '../../components/MessageList';
 import { ChatInput } from '../../components/ChatInput';
+import { SocketContext } from '../../providers/SocketProvider';
 
-interface ChatScreenProps {
+type ChatScreenProps = {
   userId: number;
-}
+  onBack: () => void;
+};
 
-const ChatScreen: React.FC<ChatScreenProps> = ({ userId }) => {
+const ChatScreen: React.FC<ChatScreenProps> = ({ userId, onBack }) => {
   const [channels, setChannels] = useState<Channel[]>([]);
   const [currentChannelId, setCurrentChannelId] = useState<number | null>(null);
+  const socketContext = useContext(SocketContext);
 
   useEffect(() => {
     const fetchChannels = async () => {
@@ -21,13 +24,13 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ userId }) => {
     };
 
     fetchChannels();
-  }, [userId]); // Ajout de userId comme dépendance de useEffect
+  }, [userId]);
 
-  // const { ipcRenderer } = window.require('electron');
-
-  // useEffect(() => {
-  //   ipcRenderer.send('set-user-id', userId);
-  // }, [userId]);
+  useEffect(() => {
+    if (currentChannelId && socketContext?.joinChannel) {
+      socketContext.joinChannel(currentChannelId.toString());
+    }
+  }, [currentChannelId, socketContext?.joinChannel]);
 
   return (
     <>
@@ -49,6 +52,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ userId }) => {
             <ChatInput currentChannelId={currentChannelId} userId={userId} />
           </>
         )}
+        <button onClick={onBack}>Logout</button>
       </div>
       <div className="input-container"></div>
     </>

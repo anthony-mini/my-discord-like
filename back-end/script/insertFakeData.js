@@ -16,9 +16,10 @@ async function insertFakeData() {
 
     // Insert fake users
     const users = [
-      { username: 'user1', password: 'password1' },
-      { username: 'user2', password: 'password2' },
-      { username: 'user3', password: 'password3' },
+      { username: 'Alice', password: 'password1' },
+      { username: 'Roberto', password: 'password2' },
+      { username: 'Jules', password: 'password3' },
+      { username: 'Miguellita', password: 'password4' },
     ];
 
     for (const user of users) {
@@ -39,9 +40,10 @@ async function insertFakeData() {
 
     // Insert fake channels
     const channels = [
-      { title: 'general' },
-      { title: 'random' },
-      { title: 'help' },
+      { title: 'Channel #1: General' },
+      { title: 'Channel #2: Javascript' },
+      { title: 'Channel #3: HTML' },
+      { title: 'Channel #4: CSS' },
     ];
 
     for (const channel of channels) {
@@ -61,9 +63,103 @@ async function insertFakeData() {
 
     // Insert fake messages
     const messages = [
-      { content: 'Hello, this is user1!', userId: 1, channelId: 1 },
-      { content: 'Hi, user1! This is user2.', userId: 2, channelId: 1 },
-      { content: 'Random message from user3', userId: 3, channelId: 2 },
+      // General channel messages
+      {
+        content: "Salut ! c'est Alice ! Tu vas bien ?",
+        userId: 1,
+        channelId: 1,
+      },
+      { content: 'Salut Alice ! Oui et toi ?', userId: 2, channelId: 1 },
+      {
+        content: 'Salut tout le monde ! Comment se passe votre journée ?',
+        userId: 3,
+        channelId: 1,
+      },
+      {
+        content: 'Salut ! Ma journée se passe bien, et la tienne ?',
+        userId: 4,
+        channelId: 1,
+      },
+      { content: 'Je vais bien, merci !', userId: 1, channelId: 1 },
+
+      // Javascript channel messages
+      {
+        content: 'Quelle est la différence entre let et var en Javascript ?',
+        userId: 1,
+        channelId: 2,
+      },
+      {
+        content:
+          'let a une portée de bloc tandis que var a une portée de fonction.',
+        userId: 2,
+        channelId: 2,
+      },
+      {
+        content: 'Il faut toujours utiliser let ou const au lieu de var.',
+        userId: 3,
+        channelId: 2,
+      },
+      {
+        content: 'Oui, const est aussi à portée de bloc et immuable.',
+        userId: 4,
+        channelId: 2,
+      },
+      { content: 'Merci pour la clarification !', userId: 1, channelId: 2 },
+
+      // HTML channel messages
+      {
+        content:
+          'Quelqu’un peut m’expliquer l’utilité de la balise <div> en HTML ?',
+        userId: 2,
+        channelId: 3,
+      },
+      {
+        content:
+          '<div> est utilisé comme conteneur pour d’autres éléments HTML.',
+        userId: 1,
+        channelId: 3,
+      },
+      {
+        content:
+          "C'est un élément de niveau bloc et il n'a pas de signification propre.",
+        userId: 3,
+        channelId: 3,
+      },
+      {
+        content:
+          'Vous pouvez le styliser avec CSS et le manipuler avec JavaScript.',
+        userId: 4,
+        channelId: 3,
+      },
+      { content: 'Compris, merci à tous !', userId: 2, channelId: 3 },
+
+      // CSS channel messages
+      {
+        content: 'Comment centrer un div horizontalement en CSS ?',
+        userId: 3,
+        channelId: 4,
+      },
+      {
+        content: 'Vous pouvez utiliser margin: auto;',
+        userId: 1,
+        channelId: 4,
+      },
+      {
+        content:
+          'Une autre façon est d’utiliser flexbox : display: flex; justify-content: center;',
+        userId: 2,
+        channelId: 4,
+      },
+      {
+        content: 'J’utilise généralement flexbox, c’est plus polyvalent.',
+        userId: 4,
+        channelId: 4,
+      },
+      {
+        content: 'Merci, je vais essayer les deux méthodes !',
+        userId: 3,
+        channelId: 4,
+      },
     ];
 
     for (const message of messages) {

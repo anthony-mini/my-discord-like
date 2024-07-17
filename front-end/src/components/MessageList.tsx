@@ -38,9 +38,9 @@ export function MessageList({
   return (
     <div className="message-list">
       {messages.map((message) => (
-        <div key={message.id}>
+        <div key={message.id} className="message-item">
           <p>
-            {message.username}: {message.content}
+            <strong>{message.username}:</strong> {message.content}
           </p>
         </div>
       ))}

@@ -1,4 +1,35 @@
-.bite {
-  color: red;
-  font-size: 300px;
+.chat-container {
+  text-align: center;
+}
+
+.channel-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.channel-list li {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.channel-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.channel-list li.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  margin-top: 1rem;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
 }

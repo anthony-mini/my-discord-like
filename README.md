@@ -63,3 +63,20 @@ Now your application should be up and running! If you encounter any issues, ensu
 ### Screenshots App
 
 ![Login section](./docs/Screenshots%20/screenshots-1.png 'Login section')
+![Select user](./docs/Screenshots%20/screenshots-2.png 'Select user')
+![Channel view](./docs/Screenshots%20/screenshots-3.png 'Channel view')
+![Send message](./docs/Screenshots%20/screenshots-4.png 'Send message')
+![Send message](./docs/Screenshots%20/screenshots-5.png 'Send message')
+![Send message](./docs/Screenshots%20/screenshots-6.png 'Send message')
+![Send message](./docs/Screenshots%20/screenshots-7.png 'Send message')
+
+## How to Test the API with Postman
+
+1. **Open Postman** and import the collection `my-discord-like.postman_collection.json` from the `docs` folder.
+2. **Configure environment variables** if necessary.
+3. **Send requests** from the imported collection.
+4. **Check the responses** to validate the API behavior.
+
+### Websocket Postman example
+
+![Postman Websocket Example](./docs/Screenshots%20/screenshots-8.png 'Postman Websocket Example')

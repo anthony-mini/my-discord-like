@@ -15,10 +15,10 @@
    npm install
    ```
 3. Start the Electron application:
-   ````sh
+
+   ```sh
    npm run start
-   ```****
-   ````
+   ```
 
 ## Back-End Setup
 
@@ -51,3 +51,15 @@
 3. Follow the steps in the Front-End Setup section to start the front-end application.
 
 Now your application should be up and running! If you encounter any issues, ensure all prerequisites are met and that all services are correctly started.
+
+## Implemented Features
+
+- [x] Creation of a Discord-like application in an Electron window using the React framework
+- [x] Ability to create multiple separate windows directly by clicking in the File -> New Window section
+- [x] Activation of a background mode and use of notifications upon receiving a message
+- [x] The WebSocket can send and receive messages in different discussion channels
+- [x] Implementation of a database for message storage
+
+### Screenshots App
+
+![Login section](./docs/Screenshots%20/screenshots-1.png 'Login section')

@@ -25,15 +25,18 @@ export function ChatInput({ currentChannelId, userId }: ChatInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="input-container">
       <input
         type="text"
         value={message}
         onChange={(event) => setMessage(event.target.value)}
         placeholder="Your message"
         required
+        className="chat-input"
       />
-      <button type="submit">Send</button>
+      <button type="submit" className="send-button">
+        Send
+      </button>
     </form>
   );
 }

@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "78b74ab9-d27e-4add-87a1-c7ee2102975b",
+		"name": "my-discord-like",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31129241"
+	},
+	"item": [
+		{
+			"name": "GET channel message",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/messages?channelId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"messages"
+					],
+					"query": [
+						{
+							"key": "channelId",
+							"value": "1"
+						}
+					]
+				},
+				"description": "This endpoint retrieves messages for a specific channel by making an HTTP GET request to the specified URL. The response returns a JSON array containing message objects with the following properties:\n\n- id (number): The unique identifier for the message.\n- content (string): The content of the message.\n- createdAt (string): The timestamp indicating when the message was created.\n- username (string): The username of the message sender.\n    \n\nHere is the JSON schema for the response:\n\n``` json\n{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"id\": {\n        \"type\": \"number\"\n      },\n      \"content\": {\n        \"type\": \"string\"\n      },\n      \"createdAt\": {\n        \"type\": \"string\"\n      },\n      \"username\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}\n\n ```"
+			},
+			"response": [
+				{
+					"name": "exemple #1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/messages?channelId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"messages"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "966"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3c6-8daJMzXKYWQ5vYd8NRcbzO7hJ/Q\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 18 Jul 2024 08:58:09 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"content\": \"Salut ! c'est Alice ! Tu vas bien ?\",\n        \"createdAt\": \"2024-07-17T12:52:29.094Z\",\n        \"username\": \"Alice\"\n    },\n    {\n        \"id\": 2,\n        \"content\": \"Salut Alice ! Oui et toi ?\",\n        \"createdAt\": \"2024-07-17T12:52:29.096Z\",\n        \"username\": \"Roberto\"\n    },\n    {\n        \"id\": 3,\n        \"content\": \"Salut tout le monde ! Comment se passe votre journée ?\",\n        \"createdAt\": \"2024-07-17T12:52:29.097Z\",\n        \"username\": \"Jules\"\n    },\n    {\n        \"id\": 4,\n        \"content\": \"Salut ! Ma journée se passe bien, et la tienne ?\",\n        \"createdAt\": \"2024-07-17T12:52:29.099Z\",\n        \"username\": \"Miguellita\"\n    },\n    {\n        \"id\": 5,\n        \"content\": \"Je vais bien, merci !\",\n        \"createdAt\": \"2024-07-17T12:52:29.101Z\",\n        \"username\": \"Alice\"\n    },\n    {\n        \"id\": 25,\n        \"content\": \"On s'en fou !\",\n        \"createdAt\": \"2024-07-17T12:55:22.161Z\",\n        \"username\": \"Jules\"\n    },\n    {\n        \"id\": 31,\n        \"content\": \"hello world\",\n        \"createdAt\": \"2024-07-18T06:55:11.859Z\",\n        \"username\": \"Roberto\"\n    },\n    {\n        \"id\": 33,\n        \"content\": \"hello world\",\n        \"createdAt\": \"2024-07-18T06:56:21.668Z\",\n        \"username\": \"Alice\"\n    },\n    {\n        \"id\": 35,\n        \"content\": \"hello world\",\n        \"createdAt\": \"2024-07-18T06:56:40.185Z\",\n        \"username\": \"Alice\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GET ALL Channels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/channels",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"channels"
+					]
+				},
+				"description": "The `GET` request retrieves a list of channels from the server.\n\n### Response\n\nThe response is a JSON array with the following schema:\n\n``` json\n[\n  {\n    \"id\": \"number\",\n    \"title\": \"string\"\n  }\n]\n\n ```\n\n- `id` (number): The unique identifier of the channel.\n- `title` (string): The title of the channel."
+			},
+			"response": [
+				{
+					"name": "exemple #1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/channels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"channels"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "153"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"99-Jek10B2WCBSTf+L8vtVAFzgZ53Q\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 18 Jul 2024 09:01:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Channel #1: General\"\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Channel #2: Javascript\"\n    },\n    {\n        \"id\": 3,\n        \"title\": \"Channel #3: HTML\"\n    },\n    {\n        \"id\": 4,\n        \"title\": \"Channel #4: CSS\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GET ALL users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "The endpoint retrieves a list of users from the server.\n\n### Response\n\nThe response is in JSON format and has the following schema:\n\n``` json\n[\n  {\n    \"id\": \"number\",\n    \"username\": \"string\",\n    \"password\": \"string\"\n  }\n]\n\n ```"
+			},
+			"response": [
+				{
+					"name": "exemple #1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "212"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"d4-XjMjghZy/W39JLXo0Wyy48XKIy8\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 18 Jul 2024 09:03:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"username\": \"Alice\",\n        \"password\": \"password1\"\n    },\n    {\n        \"id\": 2,\n        \"username\": \"Roberto\",\n        \"password\": \"password2\"\n    },\n    {\n        \"id\": 3,\n        \"username\": \"Jules\",\n        \"password\": \"password3\"\n    },\n    {\n        \"id\": 4,\n        \"username\": \"Miguellita\",\n        \"password\": \"password4\"\n    }\n]"
+				}
+			]
+		}
+	]
+}
